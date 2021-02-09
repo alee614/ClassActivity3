@@ -28,7 +28,29 @@ public class SecondActivity extends AppCompatActivity {
     private ArrayList<Weather> weatherInfo;
     private RecyclerView recyclerView;
 
+    protected void onCreate(Bundle savedInstanceState) {
 
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
+
+        recyclerView = findViewById(R.id.recyclerView_weather);
+        location = findViewById(R.id.textView_title);
+
+        weatherInfo = new ArrayList<>();
+
+        Intent intent = getIntent();
+        location.setText(intent.getStringExtra("location"));
+
+        weatherInfo = intent.getParcelableArrayListExtra("value");
+        WeatherAdapter adapter = new WeatherAdapter(weatherInfo);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+    }
+
+/**
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +65,8 @@ public class SecondActivity extends AppCompatActivity {
         String value = intent.getStringExtra("json");
 
         JSONObject json = null;
+
+
         try {
             json = new JSONObject(value);
             JSONObject jsonCity = json.getJSONObject("city");
@@ -71,6 +95,9 @@ public class SecondActivity extends AppCompatActivity {
                 Weather weatherObject = new Weather(time, feelsLike, description);
                 weatherInfo.add(weatherObject);
             }
+
+
+
              WeatherAdapter adapter = new WeatherAdapter(weatherInfo);
              recyclerView.setAdapter(adapter);
              recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -108,7 +135,7 @@ public class SecondActivity extends AppCompatActivity {
 //
 //
 //        }
- */
+
 
 
 
@@ -117,4 +144,7 @@ public class SecondActivity extends AppCompatActivity {
 
 
     }
+    */
+
+
 }

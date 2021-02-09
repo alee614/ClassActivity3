@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private TextInputEditText input_city;
     private Button go;
     private static final String api_url = "http://api.openweathermap.org/data/2.5/forecast";
-    private String json;
+    private ArrayList<Weather> weatherInfo;
 
 
     AsyncHttpClient client = new AsyncHttpClient();
@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
         input_city = findViewById(R.id.input_city);
         go = findViewById(R.id.button_go);
+
+        weatherInfo = new ArrayList<>();
 
 
         go.setOnClickListener(new View.OnClickListener() {
@@ -65,19 +67,78 @@ public class MainActivity extends AppCompatActivity {
         client.get(api_url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                json = new String(responseBody);
-                intent.putExtra("json", json);
-                startActivity(intent);
+                try {
+                    JSONObject json = new JSONObject(new String(responseBody));
+
+                    JSONObject jsonCity = json.getJSONObject("city");
+                    String city = jsonCity.getString("name");
+                    String country = jsonCity.getString("country");
+                    String stringlocation = city + ", " + country;
+                    intent.putExtra("location", stringlocation);
+
+                    JSONArray list = json.getJSONArray("list");
+                    for (int i = 0; i < list.length(); i++){
+                        JSONObject info = list.getJSONObject(i);
+                        // feels like
+                        JSONObject main = info.getJSONObject("main");
+                        int feelsLike = main.getInt("feels_like");
+//                        Log.d("temp", String.valueOf(feelsLike));
+                        // description
+                        JSONArray weather = info.getJSONArray("weather");
+                        JSONObject obj = weather.getJSONObject(0);
+                        String description = obj.getString("description");
+//                        Log.d("descrip", description);
+
+                        // time
+                        String dt_txt = info.getString("dt_txt");
+                        String date = dt_txt.substring(0 , 10);
+                        String time = dt_txt.substring(11);
+                        Log.d("date", date);
+                        Log.d("time", time);
+
+
+//                        Log.d("time", time);
+
+                        Weather weatherObject = new Weather(time, date, feelsLike, description);
+                        weatherInfo.add(weatherObject);
+                    }
+                    intent.putParcelableArrayListExtra("value", weatherInfo);
+                    startActivity(intent);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
 
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Intent intent = new Intent(MainActivity.this, ThirdActivity.class);
+                startActivity(intent);
 
             }
-        }
+        });
 
-        );
+
+
+//        client.get(api_url, params, new AsyncHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//                json = new String(responseBody);
+//
+//                intent.putExtra("json", json);
+//                startActivity(intent);
+//
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//
+//            }
+//        }
+//
+//        );
 
 
     }

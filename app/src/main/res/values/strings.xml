@@ -3,4 +3,11 @@
     <string name="input_city">Enter city name</string>
     <string name="button_go">GO</string>
     <string name="feels_like">Feels Like</string>
+    <string name="title_activity_third">ThirdActivity</string>
+    <string name="empty">No city found.</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
 </resources>

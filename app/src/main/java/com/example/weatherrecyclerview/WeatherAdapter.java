@@ -20,6 +20,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         TextView textView_time;
         TextView textView_description;
         TextView textView_temp;
+        TextView textView_date;
 
         public ViewHolder (View itemView){
             // itemview => represents the entire view of each row
@@ -29,6 +30,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
             textView_time = itemView.findViewById(R.id.text_time);
             textView_temp = itemView.findViewById(R.id.text_temp);
             textView_description = itemView.findViewById(R.id.text_description);
+            textView_date = itemView.findViewById(R.id.text_date);
         }
 
     }
@@ -66,9 +68,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         holder.textView_description.setText(weather.getDescription());
         holder.textView_temp.setText(String.valueOf(weather.getTemperature()));
         holder.textView_time.setText(weather.getTime());
+        holder.textView_date.setText(weather.getDate());
 
     }
-
 
 
     @Override

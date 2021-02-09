@@ -6,61 +6,77 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/text_time"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="18sp"
-            app:autoSizeMaxTextSize="18sp" />
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="18sp"
-            app:autoSizeMaxTextSize="18sp" />
+            <TextView
+                android:id="@+id/text_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="TextView"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/text_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="TextView"
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp" />
+
+            <TextView
+                android:id="@+id/text_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="TextView"
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/feels_like"
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp" />
+
+            <TextView
+                android:id="@+id/text_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="TextView"
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp" />
+        </LinearLayout>
+
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="16dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/feels_like"
-            android:textSize="18sp"
-            app:autoSizeMaxTextSize="18sp" />
-
-        <TextView
-            android:id="@+id/text_temp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="18sp"
-            app:autoSizeMaxTextSize="18sp" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
