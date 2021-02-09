@@ -64,7 +64,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
         Weather weather = weatherInfo.get(position);
         holder.textView_description.setText(weather.getDescription());
-        holder.textView_temp.setText(weather.getTemperature());
+        holder.textView_temp.setText(String.valueOf(weather.getTemperature()));
         holder.textView_time.setText(weather.getTime());
 
     }

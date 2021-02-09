@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private TextInputEditText input_city;
     private Button go;
     private static final String api_url = "http://api.openweathermap.org/data/2.5/forecast";
+    private String json;
 
-    private ArrayList<Weather> weatherInfo;
 
     AsyncHttpClient client = new AsyncHttpClient();
 
@@ -39,9 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
         input_city = findViewById(R.id.input_city);
         go = findViewById(R.id.button_go);
-
-        weatherInfo = new ArrayList<Weather>();
-
 
 
         go.setOnClickListener(new View.OnClickListener() {
@@ -68,45 +65,9 @@ public class MainActivity extends AppCompatActivity {
         client.get(api_url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                try {
-                    JSONObject json = new JSONObject(new String(responseBody));
-
-                    JSONObject jsonCity = json.getJSONObject("city");
-                    String city = jsonCity.getString("name");
-                    String country = jsonCity.getString("country");
-                    String location = city + ", " + country;
-                    // Log.d("location", location);
-                    intent.putExtra("location", location);
-
-
-                    // getting the info from each thing
-                    JSONArray list = json.getJSONArray("list");
-                    for (int i = 0; i < list.length(); i++){
-                        JSONObject info = list.getJSONObject(i);
-                        // feels like
-                        JSONObject main = info.getJSONObject("main");
-                        int feelsLike = main.getInt("feels_like");
-//                        Log.d("temp", String.valueOf(feelsLike));
-                        // description
-                        JSONArray weather = info.getJSONArray("weather");
-                        JSONObject obj = weather.getJSONObject(0);
-                        String description = obj.getString("description");
-//                        Log.d("descrip", description);
-
-                        // time
-                        String time = info.getString("dt_txt");
-//                        Log.d("time", time);
-
-                        Weather weatherObject = new Weather(time, feelsLike, description);
-                        Log.d("object", weatherObject.toString());
-                        weatherInfo.add(weatherObject);
-                    }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
+                json = new String(responseBody);
+                intent.putExtra("json", json);
+                startActivity(intent);
 
             }
 
@@ -117,10 +78,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         );
-        Log.d("weatherInfo passed", weatherInfo.toString());
 
-        intent.putParcelableArrayListExtra("weatherList", weatherInfo);
-        startActivity(intent);
 
     }
 }

@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 
-public class Weather implements Parcelable{
+public class Weather {
     private String time;
     private int temperature;
     private String description;
@@ -24,17 +24,6 @@ public class Weather implements Parcelable{
         description = in.readString();
     }
 
-    public static final Creator<Weather> CREATOR = new Creator<Weather>() {
-        @Override
-        public Weather createFromParcel(Parcel in) {
-            return new Weather(in);
-        }
-
-        @Override
-        public Weather[] newArray(int size) {
-            return new Weather[size];
-        }
-    };
 
     public String getDescription() {
         return description;
@@ -49,16 +38,4 @@ public class Weather implements Parcelable{
         return time;
     }
 
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(time);
-        dest.writeInt(temperature);
-        dest.writeString(description);
-    }
 }
